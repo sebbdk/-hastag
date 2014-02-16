@@ -2,7 +2,7 @@
 * @Author: kasper jensen
 * @Date:   2014-02-15 11:09:19
 * @Last Modified by:   kasper jensen
-* @Last Modified time: 2014-02-16 02:28:55
+* @Last Modified time: 2014-02-16 11:37:07
 */
 
 var _assets = {};
@@ -15,7 +15,11 @@ define(['PIXI', 'mixin/EventDispatcher'], function(PIXI, EventDispatcher) {
 		'assets/photograph.png',
 		'assets/Temp_Cursor_Sheet.png',
 		'assets/Bullet.png',
-		'assets/Bear_Death_Sheet.png'
+		'assets/Bear_Death_Sheet.png',
+		'assets/socialist_feed_screen.png',
+
+		'assets/shade.png',
+		'assets/level.png'
 	];
 
 	var myClass = function() {

@@ -2,7 +2,7 @@
 * @Author: kasperjensen
 * @Date:   2014-02-13 22:10:36
 * @Last Modified by:   kasper jensen
-* @Last Modified time: 2014-02-16 05:54:28
+* @Last Modified time: 2014-02-16 12:38:56
 */
 
 /**
@@ -31,6 +31,9 @@ requirejs.config({
 		},
 		'stats': {
 			exports: 'Stats'
+		},
+		'tween': {
+			exports: 'Tween'
 		}
 	},
 	baseUrl:'js/Lib',
@@ -41,7 +44,8 @@ requirejs.config({
 		'PIXI':'../vendor/pixi/bin/pixi.dev',
 		'PathFinding':'../vendor/PathFinding.js/lib/pathfinding-browser',
 		'stats':'../vendor/stats.js/build/stats.min',
-		'soundjs':'../misc/soundjs-0.5.2.min'
+		'soundjs':'../misc/soundjs-0.5.2.min',
+		'tween':'../misc/Tween'
 	},
 	urlArgs: 'bust=' + Date.now()
 });
@@ -86,7 +90,7 @@ requirejs(['view/Gameview', 'PIXI', 'jquery', 'stats', 'soundjs'], function(Game
 		stats.domElement.style.left = '0px';
 		stats.domElement.style.top = '0px';
 
-		document.body.appendChild( stats.domElement );
+		//document.body.appendChild( stats.domElement );
 
 		/*if($(window).width() > 960) {
 			function animate() {

@@ -14,7 +14,7 @@ body {
 	background-color: #BBBBBB;
 
 	background-image: url(../assets/Socialist_Title.png);
-	background-position: center 100px ;
+	background-position: center 0px ;
 	background-repeat: no-repeat;
 }
 
@@ -98,7 +98,7 @@ a {
 .gameover, .start-btn {
 	display: none;
 	position: absolute;
-	top: 300px;
+	top: 200px;
 	width: inherit;
 	background-color: #FFFFFF;
 	color: #333333;

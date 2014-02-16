@@ -1,14 +1,15 @@
 /* 
 * @Author: kasper jensen
 * @Date:   2014-02-15 00:00:32
-* @Last Modified by:   kasper jensen
-* @Last Modified time: 2014-02-16 09:17:33
+* @Last Modified by:   kasperjensen
+* @Last Modified time: 2014-02-16 13:10:49
 */
 
 define(['PIXI', 'map/Tilemap', 'backbone', 'view/Mobview',
-		'model/Mobmodel', 'controller/Playercontroller', 'tools/Assets', 'jquery', 'view/Interface', 'view/Cursor'], function(
+		'model/Mobmodel', 'controller/Playercontroller', 'tools/Assets', 'jquery',
+		'view/Interface', 'view/Cursor', 'view/Slideshow'], function(
 			PIXI, Tilemap, Backbone,
-			Mobview, Mobmodel, Playercontroller, Assets, $, Interface, Cursor) {
+			Mobview, Mobmodel, Playercontroller, Assets, $, Interface, Cursor, Slidershow) {
 
 	function myClass(layerData) {
 		PIXI.DisplayObjectContainer.call(this);
@@ -27,6 +28,8 @@ define(['PIXI', 'map/Tilemap', 'backbone', 'view/Mobview',
 		}
 
 		self.photos = [];
+
+		self.mobContainer = new PIXI.DisplayObjectContainer();
 
 		//set up the map
 		self.map = new Tilemap('maps/demo_level/level.json');
@@ -57,6 +60,11 @@ define(['PIXI', 'map/Tilemap', 'backbone', 'view/Mobview',
 
 			//set up player controller
 			var playercontroller = new Playercontroller(self);
+
+
+			var ground = assets.getTexture('assets/level.png');
+			var groundSprite = new PIXI.Sprite(ground);
+			self.map.addChild(groundSprite);
 		});
 
 		self.start = function() {
@@ -73,7 +81,14 @@ define(['PIXI', 'map/Tilemap', 'backbone', 'view/Mobview',
 			$('.start-btn').fadeOut();
 			$('.start').removeClass('start');
 			$('.score').fadeIn();
+			self.addChild(self.mobContainer);
+
+			var shade = assets.getTexture('assets/shade.png');
+			var ShadeSprite = new PIXI.Sprite(shade);
+			self.addChild(ShadeSprite);
+
 			self.addChild(self.interface);
+
 			$('canvas').fadeIn();
 		};
 
@@ -83,11 +98,11 @@ define(['PIXI', 'map/Tilemap', 'backbone', 'view/Mobview',
 		mobs.on('add', function(model) {
 			var mob = new Mobview(model, assets);
 			model.view = mob;
-			self.addChild(mob);
+			self.mobContainer.addChild(mob);
 		});
 
 		mobs.on('remove', function(model) {
-			self.removeChild(model.view);
+			self.mobContainer.removeChild(model.view);
 		});
 
 		self.takePhoto = function() {
@@ -106,7 +121,7 @@ define(['PIXI', 'map/Tilemap', 'backbone', 'view/Mobview',
 
 			mobs.forEach(function(mob) {
 				if(mob.get('x')*32 > self.player.view.position.x-96 &&
-					mob.get('y')*32 > self.player.view.position.y-64 &&
+					mob.get('y')*32 > self.player.view.position.y-96 &&
 					mob.get('x')*32 < self.player.view.position.x+96 &&
 					mob.get('y')*32 < self.player.view.position.y+96) {
 
@@ -124,11 +139,11 @@ define(['PIXI', 'map/Tilemap', 'backbone', 'view/Mobview',
 			});
 			
 			var sprite = new PIXI.Sprite(photo);
-			self.interface.cameraport.addChild(sprite);
+			self.interface.addChild(sprite);
 			self.photos.push(sprite);
 
 			setTimeout(function() {
-				self.interface.cameraport.removeChild(sprite);
+				self.interface.removeChild(sprite);
 				self.interface.visible = false;
 				self.paused = false;
 			}, 1000);
@@ -161,7 +176,10 @@ define(['PIXI', 'map/Tilemap', 'backbone', 'view/Mobview',
 				if(mob.get('type') === 'bear' && mob.get('type') !== 'player') {
 					if(mob.get('inactive') !== true && lineDistance(mob.get('x'), mob.get('y'), self.player.get('x'), self.player.get('y')) < 0.5) {
 						self.paused = true;
-						$('.gameover').fadeIn();
+
+						var slideshow = new Slidershow(assets);
+						slideshow.play(self);
+						self.addChild(slideshow);
 					}
 				}
 

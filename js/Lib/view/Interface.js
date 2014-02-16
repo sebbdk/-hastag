@@ -2,7 +2,7 @@
 * @Author: kasper jensen
 * @Date:   2014-02-15 13:36:18
 * @Last Modified by:   kasper jensen
-* @Last Modified time: 2014-02-15 23:06:38
+* @Last Modified time: 2014-02-16 09:42:29
 */
 
 define(['PIXI', 'mixin/EventDispatcher'], function(PIXI, EventDispatcher) {
@@ -12,9 +12,11 @@ define(['PIXI', 'mixin/EventDispatcher'], function(PIXI, EventDispatcher) {
 		var self = this;
 
 		//create viewport
-		var texture = assets.getTexture('assets/camera_viewport.png');
+		var texture = assets.getTexture('assets/socialist_feed_screen.png');
 		self.cameraport = new PIXI.Sprite(texture);
 		self.cameraport.visible = true;
+		self.cameraport.position.x = -32;
+		self.cameraport.position.y = -32;
 		self.addChild(self.cameraport);
 		self.visible = false;
 

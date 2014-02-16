@@ -2,7 +2,7 @@
 * @Author: kasperjensen
 * @Date:   2014-02-13 22:40:49
 * @Last Modified by:   kasper jensen
-* @Last Modified time: 2014-02-15 19:44:32
+* @Last Modified time: 2014-02-16 12:26:55
 */
 
 define([
@@ -103,8 +103,11 @@ define([
 
 				if(displayLayer !== null) {
 					self.layers.push(displayLayer);
-					self.addChild(displayLayer);
+					
+					//HACITY HACKITY :D
+					//self.addChild(displayLayer);
 				}
+
 			});
 		};
 
@@ -119,7 +122,6 @@ define([
 			}
 
 			//console.log(self.mapData.width, self.mapData.height);
-
 			self.grid = new PF.Grid(self.mapData.height, self.mapData.width, self.grid);
 			self.finder = new PF.AStarFinder();
 		};
