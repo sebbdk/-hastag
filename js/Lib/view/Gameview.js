@@ -2,7 +2,7 @@
 * @Author: kasper jensen
 * @Date:   2014-02-15 00:00:32
 * @Last Modified by:   kasper jensen
-* @Last Modified time: 2014-02-16 01:52:38
+* @Last Modified time: 2014-02-16 09:17:33
 */
 
 define(['PIXI', 'map/Tilemap', 'backbone', 'view/Mobview',
@@ -60,9 +60,19 @@ define(['PIXI', 'map/Tilemap', 'backbone', 'view/Mobview',
 		});
 
 		self.start = function() {
+			createjs.Sound.registerSound("assets/song.mp3", '#bg', 1);
+			createjs.Sound.addEventListener("fileload", function(evt) {
+				var instance = createjs.Sound.play("#bg");
+				instance.volume = 0.2;
+				instance.addEventListener("complete", function() {
+					instance.play();
+				});
+			});
+
 			self.paused = false;
 			$('.start-btn').fadeOut();
 			$('.start').removeClass('start');
+			$('.score').fadeIn();
 			self.addChild(self.interface);
 			$('canvas').fadeIn();
 		};
@@ -82,6 +92,7 @@ define(['PIXI', 'map/Tilemap', 'backbone', 'view/Mobview',
 
 		self.takePhoto = function() {
 			self.interface.visible = true;
+			self.paused = true;
 
 			var photo = new PIXI.RenderTexture(1024, 1024);
 			photo.render(self);
@@ -92,6 +103,25 @@ define(['PIXI', 'map/Tilemap', 'backbone', 'view/Mobview',
 				224,
 				96
 			));
+
+			mobs.forEach(function(mob) {
+				if(mob.get('x')*32 > self.player.view.position.x-96 &&
+					mob.get('y')*32 > self.player.view.position.y-64 &&
+					mob.get('x')*32 < self.player.view.position.x+96 &&
+					mob.get('y')*32 < self.player.view.position.y+96) {
+
+					if(mob.get('fdead') !== true && mob.get('dead') === true) {
+						self.score += 10;
+						mob.set({fdead:true});
+					}
+
+					if(mob.get('flive') !== true) {
+						self.score += 5;
+						mob.set({flive:true});
+					}
+
+				}
+			});
 			
 			var sprite = new PIXI.Sprite(photo);
 			self.interface.cameraport.addChild(sprite);
@@ -100,6 +130,7 @@ define(['PIXI', 'map/Tilemap', 'backbone', 'view/Mobview',
 			setTimeout(function() {
 				self.interface.cameraport.removeChild(sprite);
 				self.interface.visible = false;
+				self.paused = false;
 			}, 1000);
 		};
 
@@ -157,7 +188,6 @@ define(['PIXI', 'map/Tilemap', 'backbone', 'view/Mobview',
 			if(mobs.length < 5) {
 				if(mobSpeed < 1) {
 					mobSpeed *= mobSpeedInc;
-					console.log(mobSpeed);
 				}
 
 				var pos = {

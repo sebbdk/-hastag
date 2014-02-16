@@ -73,15 +73,18 @@ body {
   overflow: hidden;
   font-family: 'Press Start 2P', cursive;
   color: #FFFFFF;
-  background-color: #000000;
+  background-color: #BBBBBB;
+  background-image: url(../assets/Socialist_Title.png);
+  background-position: center 100px;
+  background-repeat: no-repeat;
 }
 
-/* line 17, ../sass/screen.scss */
+/* line 21, ../sass/screen.scss */
 a {
   color: #FFFFFF;
 }
 
-/* line 21, ../sass/screen.scss */
+/* line 25, ../sass/screen.scss */
 .score {
   position: absolute;
   width: 100%;
@@ -91,7 +94,7 @@ a {
   text-align: center;
 }
 
-/* line 30, ../sass/screen.scss */
+/* line 34, ../sass/screen.scss */
 .cam {
   display: none;
   width: 160px;
@@ -102,88 +105,111 @@ a {
   background-image: url(../assets/weird_phone.png);
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: 80%;
 }
 
-/* line 44, ../sass/screen.scss */
+/* line 48, ../sass/screen.scss */
 .aim {
   display: none;
   width: 120px;
   height: 120px;
-  background-color: blue;
   position: absolute;
   bottom: 60px;
   left: 60px;
+  background-color: #73cf74;
+  border-radius: 1000px;
+  box-shadow: 0 0 10px #333333;
 }
-/* line 53, ../sass/screen.scss */
+/* line 59, ../sass/screen.scss */
 .aim .aim-btn {
   width: 80px;
   height: 80px;
-  background-color: grey;
   position: absolute;
+  background-image: url(../assets/Arrow.png);
+  background-repeat: none;
+  background-position: center center;
 }
-/* line 59, ../sass/screen.scss */
+/* line 67, ../sass/screen.scss */
 .aim .aim-btn.left {
   left: -40px;
   top: 20px;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  transform: rotate(-90deg);
 }
-/* line 64, ../sass/screen.scss */
+/* line 75, ../sass/screen.scss */
 .aim .aim-btn.right {
   right: -40px;
   top: 20px;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
-/* line 69, ../sass/screen.scss */
+/* line 83, ../sass/screen.scss */
 .aim .aim-btn.top {
   left: 20px;
   top: -40px;
 }
-/* line 74, ../sass/screen.scss */
+/* line 88, ../sass/screen.scss */
 .aim .aim-btn.bottom {
   left: 20px;
   bottom: -40px;
+  -webkit-transform: rotate(-180deg);
+  -moz-transform: rotate(-180deg);
+  transform: rotate(-180deg);
 }
 
-/* line 81, ../sass/screen.scss */
+/* line 98, ../sass/screen.scss */
 .gameover, .start-btn {
   display: none;
   position: absolute;
-  top: 150px;
+  top: 300px;
   width: inherit;
-  background-color: green;
+  background-color: #FFFFFF;
+  color: #333333;
   padding: 50px;
   right: 0px;
   left: 0px;
   text-align: center;
   font-size: 32px;
+  box-shadow: 0 0 20px #333333;
+}
+/* line 112, ../sass/screen.scss */
+.gameover a, .start-btn a {
+  color: #333333;
 }
 
-/* line 94, ../sass/screen.scss */
+/* line 117, ../sass/screen.scss */
 .start-btn {
   display: block;
 }
 
+/* line 121, ../sass/screen.scss */
+.score {
+  display: none;
+}
+
 @media screen and (max-width: 960px) {
-  /* line 99, ../sass/screen.scss */
+  /* line 126, ../sass/screen.scss */
   .aim, .cam {
     display: block;
   }
 }
 @media screen and (max-width: 500px) {
-  /* line 105, ../sass/screen.scss */
+  /* line 132, ../sass/screen.scss */
   .aim {
     -webkit-transform: translate(-40px, 0px) scale(0.5);
     -moz-transform: translate(-40px, 0px) scale(0.5);
     transform: translate(-40px, 0px) scale(0.5);
   }
 
-  /* line 111, ../sass/screen.scss */
+  /* line 138, ../sass/screen.scss */
   .cam {
     -webkit-transform: translate(40px, 0px) scale(0.5);
     -moz-transform: translate(40px, 0px) scale(0.5);
     transform: translate(40px, 0px) scale(0.5);
   }
 }
-/* line 120, ../sass/screen.scss */
+/* line 147, ../sass/screen.scss */
 .start .cam, .start .aim {
   display: none !important;
 }

@@ -2,7 +2,7 @@
 * @Author: kasperjensen
 * @Date:   2014-02-13 22:10:36
 * @Last Modified by:   kasper jensen
-* @Last Modified time: 2014-02-16 00:59:09
+* @Last Modified time: 2014-02-16 05:54:28
 */
 
 /**
@@ -26,6 +26,9 @@ requirejs.config({
 		'socketio': {
 			exports: 'io'
 		},
+		'soundjs': {
+			exports: 'createjs'
+		},
 		'stats': {
 			exports: 'Stats'
 		}
@@ -37,7 +40,8 @@ requirejs.config({
 		'jquery':'../vendor/jquery/jquery',
 		'PIXI':'../vendor/pixi/bin/pixi.dev',
 		'PathFinding':'../vendor/PathFinding.js/lib/pathfinding-browser',
-		'stats':'../vendor/stats.js/build/stats.min'
+		'stats':'../vendor/stats.js/build/stats.min',
+		'soundjs':'../misc/soundjs-0.5.2.min'
 	},
 	urlArgs: 'bust=' + Date.now()
 });
@@ -52,11 +56,11 @@ var Global = (function() {
  * Action!
  * this is where the application logic starts
  */
-requirejs(['view/Gameview', 'PIXI', 'jquery', 'stats'], function(Gameview, PIXI, $, Stats) {
+requirejs(['view/Gameview', 'PIXI', 'jquery', 'stats', 'soundjs'], function(Gameview, PIXI, $, Stats, createjs) {
 
 	$(document).ready(function() {
 		// create an new instance of a pixi stage
-		var stage = new PIXI.Stage(0x111111);
+		var stage = new PIXI.Stage(0xBBBBBB);
 
 		// create a renderer instance
 		var renderer = PIXI.autoDetectRenderer($(window).width(), $(window).height());
@@ -84,20 +88,36 @@ requirejs(['view/Gameview', 'PIXI', 'jquery', 'stats'], function(Gameview, PIXI,
 
 		document.body.appendChild( stats.domElement );
 
-		function animate() {
-			stats.begin();
+		/*if($(window).width() > 960) {
+			function animate() {
+				stats.begin();
 
-			gameview.update();
+				gameview.update();
 
-			// render the stage
-			renderer.render(stage);
+				// render the stage
+				renderer.render(stage);
 
-			stats.end();
-		}
+				stats.end();
+			}
 
-		var loopInterval = setInterval(function() {
+			var loopInterval = setInterval(function() {
+				requestAnimationFrame(animate);
+			}, 30);
+
+		} else {*/
+			function animate() {
+				stats.begin();
+
+				gameview.update();
+				window.requestAnimationFrame(animate);
+				// render the stage
+				renderer.render(stage);
+
+				stats.end();
+			}
+
 			window.requestAnimationFrame(animate);
-		}, 1000 / 30);
+		//}
 	});
 
 });

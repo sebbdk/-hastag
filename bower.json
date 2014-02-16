@@ -8,6 +8,7 @@
 		"PathFinding.js":null,
 		"stats.js":null,
 		"backbone":null,
-		"underscore":null
+		"underscore":null,
+		"sound.js":null
 	}
 }

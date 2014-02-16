@@ -2,7 +2,7 @@
 * @Author: kasper jensen
 * @Date:   2014-02-15 00:26:06
 * @Last Modified by:   kasper jensen
-* @Last Modified time: 2014-02-15 23:31:37
+* @Last Modified time: 2014-02-16 02:59:03
 */
 
 define(['PIXI'], function(PIXI) {
@@ -32,7 +32,7 @@ define(['PIXI'], function(PIXI) {
 				self.dAnim.visible = true;
 				self.addChild(self.dAnim);
 
-				model.set({speed:0.08});
+				model.set({speed:0.1});
 			},
 			bear:function() {
 				var con = new PIXI.DisplayObjectContainer();
@@ -105,7 +105,7 @@ define(['PIXI'], function(PIXI) {
 		}
 
 		self.die = function(game) {
-			model.set({inactive:true});
+			model.set({inactive:true, dead:true});
 
 			if(self.deathAnim) {
 				self.upAnim.visible = false;
