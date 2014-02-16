@@ -126,8 +126,8 @@
    <tile gid="257"/>
    <tile gid="258"/>
    <tile gid="258"/>
-   <tile gid="261"/>
-   <tile gid="261"/>
+   <tile gid="257"/>
+   <tile gid="257"/>
    <tile gid="258"/>
    <tile gid="257"/>
    <tile gid="257"/>
@@ -228,7 +228,7 @@
    <tile gid="257"/>
    <tile gid="257"/>
    <tile gid="258"/>
-   <tile gid="263"/>
+   <tile gid="267"/>
    <tile gid="257"/>
    <tile gid="258"/>
    <tile gid="258"/>
@@ -276,7 +276,4 @@
    <tile gid="257"/>
   </data>
  </layer>
- <imagelayer name="Image Layer 1" width="16" height="16">
-  <image source="shade.png"/>
- </imagelayer>
 </map>

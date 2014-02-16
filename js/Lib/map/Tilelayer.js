@@ -1,8 +1,8 @@
 /* 
 * @Author: kasperjensen
 * @Date:   2014-02-13 22:59:52
-* @Last Modified by:   kasperjensen
-* @Last Modified time: 2014-02-14 11:33:45
+* @Last Modified by:   kasper jensen
+* @Last Modified time: 2014-02-15 12:55:56
 */
 
 define(['PIXI'], function(PIXI) {
@@ -11,7 +11,15 @@ define(['PIXI'], function(PIXI) {
 		var self = this;
 		self.layerData = layerData;
 
-		PIXI.Graphics.call(this);
+		PIXI.DisplayObjectContainer.call(this);
+
+		var renderTexture = new PIXI.RenderTexture(map.mapData.width*32, map.mapData.height*32);
+		// create a sprite that uses the new render texture...
+		// and add it to the stage
+		var sprite = new PIXI.Sprite(renderTexture);
+		self.addChild(sprite);
+
+		var doc = new PIXI.DisplayObjectContainer();
 
 		parse();
 
@@ -29,15 +37,17 @@ define(['PIXI'], function(PIXI) {
 					var sprite = new PIXI.Sprite(texture);
 					sprite.position.x = x;
 					sprite.position.y = y;
-					self.addChild(sprite);
+					doc.addChild(sprite);
 				}
 
 				index++;
 			});
+
+			renderTexture.render(doc);
 		}
 	}
 
-	myClass.prototype = Object.create( PIXI.Graphics.prototype );
+	myClass.prototype = Object.create( PIXI.DisplayObjectContainer.prototype );
 	myClass.prototype.constructor = myClass;
 
 	return myClass;

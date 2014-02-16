@@ -1,8 +1,8 @@
 /* 
 * @Author: kasperjensen
 * @Date:   2014-02-14 00:18:36
-* @Last Modified by:   kasperjensen
-* @Last Modified time: 2014-02-14 14:09:31
+* @Last Modified by:   kasper jensen
+* @Last Modified time: 2014-02-15 12:50:07
 */
 
 define(['PIXI'], function(PIXI) {

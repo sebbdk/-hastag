@@ -1,8 +1,8 @@
 /* 
 * @Author: kasperjensen
 * @Date:   2014-02-13 22:40:49
-* @Last Modified by:   kasperjensen
-* @Last Modified time: 2014-02-14 13:35:58
+* @Last Modified by:   kasper jensen
+* @Last Modified time: 2014-02-15 19:44:32
 */
 
 define([
@@ -12,7 +12,8 @@ define([
 		'map/Imagelayer',
 		'map/Objectlayer',
 		'map/Tilelayer',
-		'PIXI'],
+		'PIXI',
+		'PathFinding'],
 		function(
 			$,
 			EventDispatcher,
@@ -20,15 +21,18 @@ define([
 			Imagelayer,
 			Objectlayer,
 			Tilelayer,
-			PIXI) {
+			PIXI,
+			PF) {
 
 	var Tilemap = function(path) {
 		var self = this;
 		self.mapData = null;
 		self.layers = [];
+		self.grid = null;
+		self.finder = null;
 
 		//extend the PIXI graphics object!
-		PIXI.Graphics.call(this);
+		PIXI.DisplayObjectContainer.call(this);
 
 		//get the doc root
 		var docRoot = path;
@@ -46,6 +50,7 @@ define([
 			}).done(function(data, textStatus, jqXHR) {
 				self.mapData = data;
 				self.loadAssets();
+				self.prepareFinder();
 				self.trigger('map_loaded', data);
 			}).fail(function(jqXHR, textStatus, errorThrown) {
 				throw "The tilemap could not be loaded";
@@ -101,11 +106,52 @@ define([
 					self.addChild(displayLayer);
 				}
 			});
-			
 		};
+
+		self.prepareFinder = function() {
+			self.grid = [];
+			//build a placeholder grid without blocked spots for now
+			for(var x = 0; x < self.mapData.width; x++) {
+				self.grid[x] = [];
+				for(var y = 0; y < self.mapData.height; y++) {
+					self.grid[x][y] = 0;
+				}
+			}
+
+			//console.log(self.mapData.width, self.mapData.height);
+
+			self.grid = new PF.Grid(self.mapData.height, self.mapData.width, self.grid);
+			self.finder = new PF.AStarFinder();
+		};
+
+		self.findPath = function(fx, fy, tx, ty) {
+			return self.finder.findPath(fx, fy, tx, ty, self.grid.clone());
+		};
+
+		self.touchstart  = self.mousedown = function(event) {
+			var pos = event.getLocalPosition(self);
+			event.coords = {
+				x:Math.floor(pos.x/(32)),
+				y:Math.floor(pos.y/(32))
+			};
+
+			self.trigger('click', event);
+		};
+
+		self.touchmove  = self.mousemove = function(event) {
+			var pos = event.getLocalPosition(self);
+			event.coords = {
+				x:Math.floor(pos.x/(32)),
+				y:Math.floor(pos.y/(32))
+			};
+
+			self.trigger('move', event);
+		};
+
+		self.setInteractive(true);
 	};
 
-	Tilemap.prototype = Object.create( PIXI.Graphics.prototype );
+	Tilemap.prototype = Object.create( PIXI.DisplayObjectContainer.prototype );
 	Tilemap.prototype.constructor = Tilemap;
 
 	return Tilemap;

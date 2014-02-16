@@ -4,6 +4,10 @@
 	"dependencies": {
 		"pixi":null,
 		"jquery":null,
-		"requirejs":null
+		"requirejs":null,
+		"PathFinding.js":null,
+		"stats.js":null,
+		"backbone":null,
+		"underscore":null
 	}
 }

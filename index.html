@@ -3,13 +3,29 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 	<title>JStrap</title>
 
 	<link rel="stylesheet" href="css/screen.css">
 </head>
-<body>
-	
+<body class="start">
+	<div class="score">Score:<span>XXX</span>!</div>
+	<div class="cam"></div>
+	<div class="aim">
+		<div class="aim-btn top"></div>
+		<div class="aim-btn bottom"></div>
+		<div class="aim-btn left"></div>
+		<div class="aim-btn right"></div>
+	</div>
+
+	<div class="start-btn">
+		<a href="#" class="replay">Start!</a>
+	</div>
+
+	<div class="gameover">
+		GAME OVER!<br /><br />
+		<a href="#" class="replay" onclick="window.location.reload();">Play again!</a>
+	</div>
 	<script data-main="js/main" src="js/vendor/requirejs/require.js" type="text/javascript" charset="utf-8" async defer></script>
 </body>
 </html>

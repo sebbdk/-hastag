@@ -4,3 +4,120 @@
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
 @import "compass/reset";
+
+@import url(http://fonts.googleapis.com/css?family=Press+Start+2P);
+
+body {
+	overflow: hidden;
+	font-family: 'Press Start 2P', cursive;
+	color: #FFFFFF;
+	background-color: #000000;
+}
+
+a {
+	color: #FFFFFF;
+}
+
+.score {
+	position: absolute;
+	width: 100%;
+	top: 0px;
+	font-size: 34px;
+	padding: 20px;
+	text-align: center;
+}
+
+.cam {
+	display: none;
+	width: 160px;
+	height: 160px;
+	position: absolute;
+	bottom: 40px;
+	right: 40px;
+
+	background-image: url(../assets/weird_phone.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 80%;
+}
+
+.aim {
+	display: none;
+	width: 120px;
+	height: 120px;
+	background-color: blue;
+	position: absolute;
+	bottom: 60px;
+	left: 60px;
+
+	.aim-btn {
+		width: 80px;
+		height: 80px;
+		background-color: grey;
+		position: absolute;
+
+		&.left {
+			left: -40px;
+			top: 20px;
+		}
+
+		&.right {
+			right: -40px;
+			top: 20px;
+		}
+
+		&.top {
+			left: 20px;
+			top: -40px;
+		}
+
+		&.bottom {
+			left: 20px;
+			bottom: -40px;
+		}
+	}
+}
+
+.gameover, .start-btn {
+	display: none;
+	position: absolute;
+	top: 150px;
+	width: inherit;
+	background-color: green;
+	padding: 50px;
+	right: 0px;
+	left: 0px;
+	text-align: center;
+	font-size: 32px;
+}
+
+.start-btn {
+	display: block;
+}
+
+@media screen and  (max-width: 960px) {
+	.aim, .cam {
+		display: block;
+	}	
+}
+
+@media screen and  (max-width: 500px) {
+	.aim {
+		-webkit-transform: translate(-40px, 0px) scale(0.5);
+		-moz-transform: translate(-40px, 0px) scale(0.5);
+		transform: translate(-40px, 0px) scale(0.5);
+	}
+
+	.cam {
+		-webkit-transform: translate(40px, 0px) scale(0.5);
+		-moz-transform: translate(40px, 0px) scale(0.5);
+		transform: translate(40px, 0px) scale(0.5);
+	}
+
+}
+
+.start {
+	.cam, .aim {
+		display: none !important;
+	}
+}

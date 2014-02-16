@@ -1,8 +1,8 @@
 /* 
 * @Author: kasperjensen
 * @Date:   2014-02-13 22:10:36
-* @Last Modified by:   kasperjensen
-* @Last Modified time: 2014-02-14 13:28:33
+* @Last Modified by:   kasper jensen
+* @Last Modified time: 2014-02-16 00:59:09
 */
 
 /**
@@ -25,6 +25,9 @@ requirejs.config({
 		},
 		'socketio': {
 			exports: 'io'
+		},
+		'stats': {
+			exports: 'Stats'
 		}
 	},
 	baseUrl:'js/Lib',
@@ -32,35 +35,69 @@ requirejs.config({
 		'underscore':'../vendor/underscore/underscore',
 		'backbone':'../vendor/backbone/backbone',
 		'jquery':'../vendor/jquery/jquery',
-		'PIXI':'../vendor/pixi/bin/pixi'
-	}
+		'PIXI':'../vendor/pixi/bin/pixi.dev',
+		'PathFinding':'../vendor/PathFinding.js/lib/pathfinding-browser',
+		'stats':'../vendor/stats.js/build/stats.min'
+	},
+	urlArgs: 'bust=' + Date.now()
 });
+
+var Global = (function() {
+	this.getTime = function() {
+		return new Date().getTime();
+	};
+})();
 
 /**
  * Action!
  * this is where the application logic starts
  */
-requirejs(['map/Tilemap', 'PIXI'], function(Tilemap, PIXI) {
+requirejs(['view/Gameview', 'PIXI', 'jquery', 'stats'], function(Gameview, PIXI, $, Stats) {
 
-	// create an new instance of a pixi stage
-	var stage = new PIXI.Stage(0x66FF99);
+	$(document).ready(function() {
+		// create an new instance of a pixi stage
+		var stage = new PIXI.Stage(0x111111);
 
-	// create a renderer instance
-	var renderer = PIXI.autoDetectRenderer(400, 300);
+		// create a renderer instance
+		var renderer = PIXI.autoDetectRenderer($(window).width(), $(window).height());
 
-	// add the renderer view element to the DOM
-	document.body.appendChild(renderer.view);
+		// add the renderer view element to the DOM
+		document.body.appendChild(renderer.view);
 
-	var map = new Tilemap('maps/demo_level/simple.json');
-	map.loadLevelData();
-	stage.addChild(map);
+		$(renderer.view).hide();
 
-	function animate() {
-		requestAnimFrame( animate );
+		var gameview = new Gameview();
+		stage.addChild(gameview);
 
-		// render the stage
-		renderer.render(stage);
-	}
+		$('body').bind('touchmove', function (ev) { 
+			ev.preventDefault();
+		});
 
-	animate();
+		//stats!
+		var stats = new Stats();
+		stats.setMode(0); // 0: fps, 1: ms
+
+		// Align top-left
+		stats.domElement.style.position = 'absolute';
+		stats.domElement.style.left = '0px';
+		stats.domElement.style.top = '0px';
+
+		document.body.appendChild( stats.domElement );
+
+		function animate() {
+			stats.begin();
+
+			gameview.update();
+
+			// render the stage
+			renderer.render(stage);
+
+			stats.end();
+		}
+
+		var loopInterval = setInterval(function() {
+			window.requestAnimationFrame(animate);
+		}, 1000 / 30);
+	});
+
 });
