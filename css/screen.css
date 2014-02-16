@@ -74,7 +74,7 @@ body {
   font-family: 'Press Start 2P', cursive;
   color: #FFFFFF;
   background-color: #BBBBBB;
-  background-image: url(../assets/Socialist_Title.png);
+  background-image: url(../assets/Socialist_Title_PC.png);
   background-position: center 0px;
   background-repeat: no-repeat;
 }
@@ -162,7 +162,7 @@ a {
 .gameover, .start-btn {
   display: none;
   position: absolute;
-  top: 200px;
+  top: 260px;
   width: inherit;
   background-color: #FFFFFF;
   color: #333333;
@@ -193,23 +193,33 @@ a {
   .aim, .cam {
     display: block;
   }
+
+  /* line 130, ../sass/screen.scss */
+  .gameover, .start-btn {
+    top: 200px;
+  }
+
+  /* line 134, ../sass/screen.scss */
+  body {
+    background-image: url(../assets/Socialist_Title.png);
+  }
 }
 @media screen and (max-width: 500px) {
-  /* line 132, ../sass/screen.scss */
+  /* line 140, ../sass/screen.scss */
   .aim {
     -webkit-transform: translate(-40px, 0px) scale(0.5);
     -moz-transform: translate(-40px, 0px) scale(0.5);
     transform: translate(-40px, 0px) scale(0.5);
   }
 
-  /* line 138, ../sass/screen.scss */
+  /* line 146, ../sass/screen.scss */
   .cam {
     -webkit-transform: translate(40px, 0px) scale(0.5);
     -moz-transform: translate(40px, 0px) scale(0.5);
     transform: translate(40px, 0px) scale(0.5);
   }
 }
-/* line 147, ../sass/screen.scss */
+/* line 155, ../sass/screen.scss */
 .start .cam, .start .aim {
   display: none !important;
 }

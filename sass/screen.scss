@@ -13,7 +13,7 @@ body {
 	color: #FFFFFF;
 	background-color: #BBBBBB;
 
-	background-image: url(../assets/Socialist_Title.png);
+	background-image: url(../assets/Socialist_Title_PC.png);
 	background-position: center 0px ;
 	background-repeat: no-repeat;
 }
@@ -98,7 +98,7 @@ a {
 .gameover, .start-btn {
 	display: none;
 	position: absolute;
-	top: 200px;
+	top: 260px;
 	width: inherit;
 	background-color: #FFFFFF;
 	color: #333333;
@@ -126,6 +126,14 @@ a {
 	.aim, .cam {
 		display: block;
 	}	
+
+	.gameover, .start-btn {
+		top: 200px;
+	}
+
+	body {
+		background-image: url(../assets/Socialist_Title.png);
+	}
 }
 
 @media screen and  (max-width: 500px) {
