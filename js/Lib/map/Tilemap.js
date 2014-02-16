@@ -1,8 +1,8 @@
 /* 
 * @Author: kasperjensen
 * @Date:   2014-02-13 22:40:49
-* @Last Modified by:   kasper jensen
-* @Last Modified time: 2014-02-16 12:26:55
+* @Last Modified by:   kasperjensen
+* @Last Modified time: 2014-02-16 13:36:45
 */
 
 define([
@@ -45,7 +45,7 @@ define([
 
 		self.loadLevelData = function() {
 			$.ajax(path, {
-				type:'POST',
+				type:'GET',
 				dataType:'json'
 			}).done(function(data, textStatus, jqXHR) {
 				self.mapData = data;
